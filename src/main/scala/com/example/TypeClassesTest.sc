@@ -100,7 +100,7 @@ val rtos = r.toString()
 
 case class ProductVarian(key: String, value:String)
 
-val l = Seq(ProductVarian("1","jajaj"))
+val l = Seq(ProductVarian("1","jajaj")
 
 val lmap = Map(l map(a => a.key -> a.value): _*)
 
