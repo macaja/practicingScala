@@ -163,3 +163,20 @@ case class Variant(key:String, value:String)
 val item = Item("1",Map("1" -> "2"),"coffee")
 
 val m = item.variants.map(a => Variant(a._1,a._2)).toSeq
+
+case class Merchant(id: String, itemNumbers: Set[String])
+
+
+val merchant1: Set[Merchant] = Set(Merchant("1",Set("10","20","30")),Merchant("2",Set("40","50","60")),Merchant("3",Set("70","80","90")))
+
+val rft: Map[String, Set[String]] = merchant1.groupBy(_.id).mapValues(_.flatMap(_.itemNumbers))
+
+val res: Set[String] = Set("1","2","3","4")
+val rtos = res.toString()
+
+
+case class ProductVarian(key: String, value:String)
+
+val l = Seq(ProductVarian("1","jajaj"))
+
+val lmap = Map(l map(a => a.key -> a.value): _*)

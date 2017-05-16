@@ -1,9 +1,5 @@
-import JsonWriterInstances._
-import JsonSyntax._
-
-import PrintableFormatInstances._
-import PrintSyntax._
-
+//ADVANCED SCALA BOOK
+//First Example of Type Classes, the same of the book
 sealed trait Json
 final case class JsObject(get: Map[String, Json]) extends Json
 final case class JsString(get: String) extends  Json
@@ -45,12 +41,13 @@ object JsonSyntax {
   }
 }
 
-Json.toJson(Person("Mauricio","cardona@gmail.com"))
-Json.toJson("Mauricio")
-Json.toJson(15)
+import JsonWriterInstances._
+import JsonSyntax._
 
 Person("Mauricio","a@g.com").toJson
 "Mauricio".toJson
+
+////Another example of TypeClasses
 
 trait Printable[A]{
   def format(value: A):String
@@ -58,7 +55,7 @@ trait Printable[A]{
 
 final case class Cat(name: String, age: Int, color:String)
 
-object PrintableFormatInstances{
+object PrintableFormatInstances extends PrintSyntax{
   implicit val stringToPrintable = new Printable[String] {
     def format(value: String):String=value
   }
@@ -70,7 +67,7 @@ object PrintableFormatInstances{
   }
 }
 
-object PrintSyntax{
+trait PrintSyntax{
   implicit class PrintFormatOps[A](value: A){
     def formatString(implicit p: Printable[A]): String = {
       p.format(value)
@@ -80,6 +77,8 @@ object PrintSyntax{
     }
   }
 }
+import PrintableFormatInstances._
+
 
 val cadena = "Mauricio".formatString
 val entero = 1.formatString
@@ -87,20 +86,17 @@ val cat = Cat("tom",15,"white and black")
 
 val formated = cat.formatString
 
+//With cats
+import cats.instances.int._
+import cats.instances.boolean._
+import cats.syntax.show._
+import cats.Show
 
-case class Merchant(id: String, itemNumbers: Set[String])
+case class MyClass(a: Int, b:String, c:Boolean)
 
-val merchant1: Set[Merchant] = Set(Merchant("1",Set("10","20","30")),Merchant("2",Set("40","50","60")),Merchant("3",Set("70","80","90")))
+implicit val myclassToShow: Show[MyClass] =
+  Show.show(r => s"MyClass es MyClass("+r.a.show+","+r.b+","+r.c.show+")")
 
-val rft: Map[String, Set[String]] = merchant1.groupBy(_.id).mapValues(_.flatMap(_.itemNumbers))
-
-val r: Set[String] = Set("1","2","3","4")
-val rtos = r.toString()
-
-
-case class ProductVarian(key: String, value:String)
-
-val l = Seq(ProductVarian("1","jajaj")
-
-val lmap = Map(l map(a => a.key -> a.value): _*)
-
+val myclass = MyClass(1,"mauricio",true).show
+val r = 123.show
+val boo = true.show
