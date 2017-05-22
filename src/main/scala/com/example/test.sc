@@ -210,12 +210,24 @@ object Promotion{
     languageCodesSupported.contains(language.toUpperCase())
   }
   private def validateCountryCode(country:String): Boolean = {
-    languageCodesSupported.contains(country.toUpperCase())
+    countryCodesSupported.contains(country.toUpperCase())
   }
 
-  private def separateLanguageAndCountryCodeOfName(name:String) :(String, String) = {
-    val codes = name.split(" ")(0).split("-")
-    (codes(0),codes(1))
+  private def validateSyntaxCodes(codes: String): Option[(String,String)] = {
+    val li = codes.split("-").toList
+    val res = li match {
+      case languageCode :: countryCode :: Nil => Some((languageCode, countryCode))
+      case _ => None
+    }
+    res
+  }
+  private def validateSyntaxName(name: String): Option[((String, String),List[String])] = {
+    val li = name.split(" ").toList
+     val res = li match {
+       case cod :: name if validateSyntaxCodes(cod).isDefined => Some((validateSyntaxCodes(cod).get,name))
+       case _ => None
+     }
+    res
   }
 
   private[this] def validateId(id: Int) : Validation[Int] = {
@@ -226,13 +238,22 @@ object Promotion{
   }
 
   private[this] def validateName(name: String): Validation[String] = {
-   val (language, country) = separateLanguageAndCountryCodeOfName(name)
-    if (name.isEmpty)
-      invalidNel(PromotionNameIsEmpty())
-    else if(!validateLanguageCode(language))
-      invalidNel(PromotionLanguageCodeOfNameNotValid())
-    else
-      valid(name)
+    val veri = validateSyntaxName(name)
+    veri match {
+      case Some(_)=> {
+        val promoName = veri.get._2
+        val (lc,cc) = veri.get._1
+        if(promoName.size < 1)
+          invalidNel(PromotionNameNameIsEmpty())
+        else if(!validateLanguageCode(lc))
+          invalidNel(PromotionNameLanguageCodeNotSupported())
+        else if(!validateCountryCode(cc))
+          invalidNel(PromotionNameCountryCodeNotSupported())
+        else
+          valid(name)
+      }
+      case None => invalidNel(PromotionNameIsEmpty())
+    }
   }
 
   def validate(id:Int, name: String):Validation[Promotion] = {
@@ -244,14 +265,17 @@ object Promotion{
 
 case class PromotionIdIsLessThanZero(code: String = "001", message: String = "Promotion id is less than Zero") extends ServiceError
 
-case class PromotionNameIsEmpty(code: String = "002", message: String = "Promotion Format Name is Incorrect") extends ServiceError
+case class PromotionNameIsEmpty(code: String = "002", message: String = "Promotion Name is Empty") extends ServiceError
 
-case class PromotionLanguageCodeOfNameNotValid(code:String = "003", message:String ="Language Code Is Not Supported") extends ServiceError
+case class PromotionNameLanguageCodeNotSupported(code:String = "003", message:String ="Language Code Is Not Supported") extends ServiceError
 
-case class PromotionCountryCodeOfNameNotValid(code:String = "004", message:String ="Country Code Is Not Supported") extends ServiceError
+case class PromotionNameCountryCodeNotSupported(code:String = "004", message:String ="Country Code Is Not Supported") extends ServiceError
 
 case class PromotionCodesAreMissing(code:String = "005", message:String ="Codes of the name of promotion are missing") extends ServiceError
 
+case class PromotionNameSyntaxInvalid(code:String = "006", message:String ="Name of promotion is incorrect should be <<iso language code>>-<<iso country code>> <<name-of-promotion>>") extends ServiceError
+
+case class PromotionNameNameIsEmpty (code:String = "007", message:String ="Promotion Name After codes is empty") extends ServiceError
 
 
 val promotion = Promotion(2,"en-us happy hour")
@@ -268,19 +292,6 @@ case class CreatePromotion(p: Promotion){
 
 val cp = CreatePromotion(promotion).validar
 
-val dto = PromotionDTO(1,"en-us happy hour")
-
-import fastparse.all._
-
-
-val ab = P( "a" ~ "b" )
-
-val Parsed.Success(_, 2) = ab.parse("ab")
-
-val Parsed.Failure(parser, 1, _) = ab.parse("aa")
-assert(parser == ("b": P0))
 
 case class PromotionName(locale:String, name:String)
-
-
 
