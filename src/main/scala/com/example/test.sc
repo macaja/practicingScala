@@ -1,6 +1,8 @@
 import akka.util.ByteString
 import cats.data.NonEmptyList
 
+import scala.concurrent.{Await, Future}
+
 //Funcion parcialmente aplicada
 def log(a:String,b:String): String = a+".."+b
 val mauricio = "Mauricio"
@@ -175,8 +177,110 @@ val res: Set[String] = Set("1","2","3","4")
 val rtos = res.toString()
 
 
-case class ProductVarian(key: String, value:String)
+case class ProductVariant(key: String, value:String)
 
-val l = Seq(ProductVarian("1","jajaj"))
+val l = Seq(ProductVariant("1","jajaj"))
 
 val lmap = Map(l map(a => a.key -> a.value): _*)
+
+//Ensayo del nombre de las promociones
+import cats.data.Validated
+
+trait ServiceError{
+  val code: String
+  val message: String
+}
+
+type Validation[A] = Validated[NonEmptyList[ServiceError],A]
+
+case class PromotionDTO(id: Int, name: String)
+
+case class Promotion(id: Int, name: String)
+
+
+object Promotion{
+
+  import cats.data.Validated.{ invalidNel, valid }
+  import cats.implicits._
+
+  val languageCodesSupported: List[String] = List("EN")
+  val countryCodesSupported: List[String] = List("US")
+
+  private def validateLanguageCode(language:String): Boolean = {
+    languageCodesSupported.contains(language.toUpperCase())
+  }
+  private def validateCountryCode(country:String): Boolean = {
+    languageCodesSupported.contains(country.toUpperCase())
+  }
+
+  private def separateLanguageAndCountryCodeOfName(name:String) :(String, String) = {
+    val codes = name.split(" ")(0).split("-")
+    (codes(0),codes(1))
+  }
+
+  private[this] def validateId(id: Int) : Validation[Int] = {
+    if(id < 1)
+      invalidNel(PromotionIdIsLessThanZero())
+    else
+      valid(id)
+  }
+
+  private[this] def validateName(name: String): Validation[String] = {
+   val (language, country) = separateLanguageAndCountryCodeOfName(name)
+    if (name.isEmpty)
+      invalidNel(PromotionNameIsEmpty())
+    else if(!validateLanguageCode(language))
+      invalidNel(PromotionLanguageCodeOfNameNotValid())
+    else
+      valid(name)
+  }
+
+  def validate(id:Int, name: String):Validation[Promotion] = {
+    (validateId(id) |@| validateName(name)) map {
+      (id, name) => Promotion(id,name)
+    }
+  }
+}
+
+case class PromotionIdIsLessThanZero(code: String = "001", message: String = "Promotion id is less than Zero") extends ServiceError
+
+case class PromotionNameIsEmpty(code: String = "002", message: String = "Promotion Format Name is Incorrect") extends ServiceError
+
+case class PromotionLanguageCodeOfNameNotValid(code:String = "003", message:String ="Language Code Is Not Supported") extends ServiceError
+
+case class PromotionCountryCodeOfNameNotValid(code:String = "004", message:String ="Country Code Is Not Supported") extends ServiceError
+
+case class PromotionCodesAreMissing(code:String = "005", message:String ="Codes of the name of promotion are missing") extends ServiceError
+
+
+
+val promotion = Promotion(2,"en-us happy hour")
+
+
+case class CreatePromotion(p: Promotion){
+  def createPromotion(p: Promotion): String = "Promotion Created"
+  def validar = Promotion.validate(p.id,p.name)
+    .fold(
+    nel => nel.toList,
+      createPromotion
+  )
+}
+
+val cp = CreatePromotion(promotion).validar
+
+val dto = PromotionDTO(1,"en-us happy hour")
+
+import fastparse.all._
+
+
+val ab = P( "a" ~ "b" )
+
+val Parsed.Success(_, 2) = ab.parse("ab")
+
+val Parsed.Failure(parser, 1, _) = ab.parse("aa")
+assert(parser == ("b": P0))
+
+case class PromotionName(locale:String, name:String)
+
+
+
