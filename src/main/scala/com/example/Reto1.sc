@@ -28,3 +28,18 @@ import ADTTransformerInstances._
 
 val r:ADT1 = ("1","2").toADT[ADT1]
 val r2:ADT2 = ("1","2").toADT[ADT2]
+
+
+val nom = "".split(" ",2)
+
+
+val lista: List[String] = List("happy","hour")
+val lis = lista
+val string: String = lista.foldLeft(" ")(_ + _)
+
+
+val bool = "".isEmpty
+
+val opt = Option(2)
+val fo = opt.fold("Fue un none")(i=> i.toString)
+

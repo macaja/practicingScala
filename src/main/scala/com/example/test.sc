@@ -193,8 +193,6 @@ trait ServiceError{
 
 type Validation[A] = Validated[NonEmptyList[ServiceError],A]
 
-case class PromotionDTO(id: Int, name: String)
-
 case class Promotion(id: Int, name: String)
 
 
@@ -206,26 +204,33 @@ object Promotion{
   val languageCodesSupported: List[String] = List("EN")
   val countryCodesSupported: List[String] = List("US")
 
-  private def validateLanguageCode(language:String): Boolean = {
-    languageCodesSupported.contains(language.toUpperCase())
+  private[this] def validateLanguageCodeIsSupported(language:String): Validation[String] = {
+    if(languageCodesSupported.contains(language.toUpperCase()))
+      valid(language)
+    else
+      invalidNel(PromotionNameLanguageCodeNotSupported())
   }
-  private def validateCountryCode(country:String): Boolean = {
-    countryCodesSupported.contains(country.toUpperCase())
+  private[this] def validateCountryCodeIsSupported(country:String): Validation[String] = {
+    if(countryCodesSupported.contains(country.toUpperCase()))
+      valid(country)
+    else
+      invalidNel(PromotionNameCountryCodeNotSupported())
   }
 
-  private def validateSyntaxCodes(codes: String): Option[(String,String)] = {
+  private[this] def validateSyntaxCodes(codes: String): (String,String) = {
     val li = codes.split("-").toList
     val res = li match {
-      case languageCode :: countryCode :: Nil => Some((languageCode, countryCode))
-      case _ => None
+      case languageCode :: countryCode :: Nil => (languageCode, countryCode)
+      case _ => ("error","error")
     }
     res
   }
-  private def validateSyntaxName(name: String): Option[((String, String),List[String])] = {
-    val li = name.split(" ").toList
+  private[this] def validateSyntaxFormatName(name: String): ((String, String),String) = {
+    val li = name.split(" ",2).toList
      val res = li match {
-       case cod :: name if validateSyntaxCodes(cod).isDefined => Some((validateSyntaxCodes(cod).get,name))
-       case _ => None
+       case cod :: name :: Nil  => (validateSyntaxCodes(cod),name)
+       case cod :: n => (validateSyntaxCodes(cod),"")
+       case _ => (("error","error"),"error")
      }
     res
   }
@@ -237,32 +242,20 @@ object Promotion{
       valid(id)
   }
 
-  private[this] def validateName(name: String): Validation[String] = {
-    val veri = validateSyntaxName(name)
-    veri match {
-      case Some(_)=> {
-        val promoName = veri.get._2
-        val (lc,cc) = veri.get._1
-        if(promoName.size < 1)
-          invalidNel(PromotionNameNameIsEmpty())
-        else if(!validateLanguageCode(lc))
-          invalidNel(PromotionNameLanguageCodeNotSupported())
-        else if(!validateCountryCode(cc))
-          invalidNel(PromotionNameCountryCodeNotSupported())
-        else
-          valid(name)
-      }
-      case None => invalidNel(PromotionNameIsEmpty())
-    }
+  private[this] def validatePromotionName(name: String): Validation[String] = {
+    if(name.isEmpty)
+      invalidNel(PromotionNameIsEmpty())
+    else valid(name)
   }
 
   def validate(id:Int, name: String):Validation[Promotion] = {
-    (validateId(id) |@| validateName(name)) map {
-      (id, name) => Promotion(id,name)
+    val ((lc,cc),promoName) = validateSyntaxFormatName(name)
+    (validateId(id) |@| validatePromotionName(promoName) |@| validateLanguageCodeIsSupported(lc) |@| validateCountryCodeIsSupported(cc) ) map {
+          (id, name,lc,cc) => Promotion(id,name)
     }
+
   }
 }
-
 case class PromotionIdIsLessThanZero(code: String = "001", message: String = "Promotion id is less than Zero") extends ServiceError
 
 case class PromotionNameIsEmpty(code: String = "002", message: String = "Promotion Name is Empty") extends ServiceError
@@ -271,14 +264,11 @@ case class PromotionNameLanguageCodeNotSupported(code:String = "003", message:St
 
 case class PromotionNameCountryCodeNotSupported(code:String = "004", message:String ="Country Code Is Not Supported") extends ServiceError
 
-case class PromotionCodesAreMissing(code:String = "005", message:String ="Codes of the name of promotion are missing") extends ServiceError
-
 case class PromotionNameSyntaxInvalid(code:String = "006", message:String ="Name of promotion is incorrect should be <<iso language code>>-<<iso country code>> <<name-of-promotion>>") extends ServiceError
 
-case class PromotionNameNameIsEmpty (code:String = "007", message:String ="Promotion Name After codes is empty") extends ServiceError
 
 
-val promotion = Promotion(2,"en-us happy hour")
+val promotion = Promotion(2,"fgfg")
 
 
 case class CreatePromotion(p: Promotion){
@@ -293,5 +283,6 @@ case class CreatePromotion(p: Promotion){
 val cp = CreatePromotion(promotion).validar
 
 
-case class PromotionName(locale:String, name:String)
+
+
 
