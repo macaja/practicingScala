@@ -229,8 +229,7 @@ object Promotion{
     val li = name.split(" ",2).toList
      val res = li match {
        case cod :: name :: Nil  => (validateSyntaxCodes(cod),name)
-       case cod :: n => (validateSyntaxCodes(cod),"")
-       case _ => (("error","error"),"error")
+       case _ => (("error","error"),"")
      }
     res
   }
@@ -267,8 +266,7 @@ case class PromotionNameCountryCodeNotSupported(code:String = "004", message:Str
 case class PromotionNameSyntaxInvalid(code:String = "006", message:String ="Name of promotion is incorrect should be <<iso language code>>-<<iso country code>> <<name-of-promotion>>") extends ServiceError
 
 
-
-val promotion = Promotion(2,"fgfg")
+val promotion = Promotion(2,"")
 
 
 case class CreatePromotion(p: Promotion){

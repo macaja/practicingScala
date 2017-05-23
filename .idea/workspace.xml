@@ -6,10 +6,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e604f610-2091-4ac6-97a8-e1099d80b3f3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/example/PromotionValidationName.sc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/practicingscala.iml" afterPath="$PROJECT_DIR$/.idea/modules/practicingscala.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/example/Reto1.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/Reto1.sc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/example/test.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/test.sc" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,8 +52,8 @@
       <file leaf-file-name="test.sc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/example/test.sc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="270" column="29" lean-forward="false" selection-start-line="270" selection-start-column="29" selection-end-line="270" selection-end-column="29" />
+            <state relative-caret-position="292">
+              <caret line="234" column="3" lean-forward="true" selection-start-line="234" selection-start-column="3" selection-end-line="234" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -923,8 +919,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/example/test.sc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="270" column="29" lean-forward="false" selection-start-line="270" selection-start-column="29" selection-end-line="270" selection-end-column="29" />
+        <state relative-caret-position="292">
+          <caret line="234" column="3" lean-forward="true" selection-start-line="234" selection-start-column="3" selection-end-line="234" selection-end-column="3" />
           <folding />
         </state>
       </provider>
