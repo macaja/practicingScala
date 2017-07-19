@@ -13,7 +13,8 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "cats" % "0.9.0",
   "com.chuusai"                  %% "shapeless"                % "2.3.2",
   "com.lihaoyi" %% "fastparse" % "0.4.3",
-"org.scalatest" %% "scalatest" % "2.2.4" % "test")
+  "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+  "io.circe"                         %% "circe-parser"             % "0.8.0")
 
 // Uncomment to use Akka
 //libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.3.11"
