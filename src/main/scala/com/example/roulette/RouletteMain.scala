@@ -1,10 +1,8 @@
 package com.example.roulette
 
-import cats.implicits._
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
-import util.control.Breaks._
 
 object RouletteMain extends App {
 
@@ -35,9 +33,6 @@ object RouletteMain extends App {
         a = a + 1
       }
     }
-    /*if(finalCash < 0){
-      None
-    }else finalCash.some*/
     finalCash
   }
 

@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c3b2a17-4857-44a9-b6d8-0f694c083d4f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/Hello.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/withMain.scala" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/Functors.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/practice/Functors.sc" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/Monoid&amp;SemigroupTest.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/practice/Monoid&amp;SemigroupTest.sc" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/PromotionValidationName.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/practice/PromotionValidationName.sc" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/Reto1.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/practice/Reto1.sc" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/Shapeless.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/practice/Shapeless.sc" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/TypeClassesTest.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/practice/TypeClassesTest.sc" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/example/test.sc" afterPath="$PROJECT_DIR$/src/main/scala/com/example/practice/test.sc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/practicingscala.iml" afterPath="$PROJECT_DIR$/.idea/modules/practicingscala.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/example/roulette/RouletteMain.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/example/roulette/RouletteMain.scala" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/project/project/target/" />
@@ -58,10 +47,10 @@
       <file leaf-file-name="RouletteMain.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/example/roulette/RouletteMain.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="51" column="33" lean-forward="false" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+            <state relative-caret-position="173">
+              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
-                <element signature="e#30#53#0" expanded="true" />
+                <element signature="e#31#73#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -445,7 +434,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2541857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2541857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="sbt-shell-toolwindow" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -649,10 +638,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/example/roulette/RouletteMain.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="51" column="33" lean-forward="false" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+        <state relative-caret-position="173">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
-            <element signature="e#30#53#0" expanded="true" />
+            <element signature="e#31#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
