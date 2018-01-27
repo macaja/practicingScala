@@ -4,7 +4,7 @@ import cats.data.NonEmptyList
 import scala.concurrent.{Await, Future}
 
 //Funcion parcialmente aplicada
-def log(a:String,b:String): String = a+".."+b
+def log(a:String,b:String): String = a+ "src/main" +b
 val mauricio = "Mauricio"
 val fpa = log(mauricio, _ : String)
 fpa("bacano")

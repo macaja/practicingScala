@@ -1,6 +1,8 @@
 import cats.Monoid
 import cats.kernel.Semigroup
 
+import scala.util.Random
+
 val un = Monoid[String].combine("Hola"," Mauricio")
 val em = Monoid[String].empty
 
@@ -28,3 +30,5 @@ Semigroup[Int ⇒ Int]
     x * 10
   })
   .apply(6)
+
+Random.nextInt(37)

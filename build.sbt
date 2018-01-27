@@ -19,3 +19,5 @@ libraryDependencies ++= Seq(
 // Uncomment to use Akka
 //libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.3.11"
 
+mainClass in (Compile,run) := Some("com.example.roulette.RouletteMain")
+
