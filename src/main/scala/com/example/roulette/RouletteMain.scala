@@ -29,7 +29,7 @@ object RouletteMain extends App {
         println(s"Perdio en el intento $a")
         a = 101
       }else{
-        println(s"Intento # $a ----> cayó el número => $numberThatFell  => dinero =>    $finalCash    valor de la ficha => $tabValue")
+        println(s"Intento # $a ----> cayó el número => $numberThatFell  => dinero =>    $finalCash     valor de la ficha => $tabValue")
         a = a + 1
       }
     }
