@@ -2,7 +2,6 @@ package com.example.roulette
 
 
 import scala.util.Random
-import cats.implicits._
 
 object RouletteMain extends App {
 
@@ -51,7 +50,7 @@ object RouletteMain extends App {
         }
       }else{
         println(s"Perdiste en el intento # => $a")
-        a = 101
+        a = 100
       }
       a = a + 1
     }
